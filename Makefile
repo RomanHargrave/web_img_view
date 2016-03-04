@@ -1,25 +1,29 @@
 CC      	= gcc
 CGTK		= $(shell pkg-config --libs --cflags gtk+-2.0)
 CWAND 		= $(shell pkg-config --libs --cflags MagickWand)
-CCLDFLAGS	= -lX11 -lm $(CGTK) $(CWAND)
+CCLDFLAGS	= -g3 -lX11 -lm -lrt $(CWAND)
 CFLAGS  	= $(CCLDFLAGS) -I./include 
 STRIP   	= sstrip
 
-.PHONY: all
-
-all: webim_main webim_defish_test
+.PHONY: bin/webim_main
 
 bin:
 	-mkdir bin
 
 bin/webim_main.o: src/webim_main.c bin
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(GTK) -c $< -o $@
+
+bin/webim_display.o: src/webim_display.c include/webim/display.h bin
+	$(CC) $(CFLAGS) $(GTK) -c $< -o $@
 
 bin/webim_defish.o: src/webim_defish.c bin
 	$(CC) $(CFLAGS) $(CWAND) -c $< -o $@
 
-webim_main: bin/*.o
-	$(CC) $(CCLDFLAGS) $? -o $@
+bin/webim_magick_tools.o: src/webim_magick_tools.c bin
+	$(CC) $(CFLAGS) -c $< -o $@
+
+bin/webim_main: bin/webim_defish.o bin/webim_magick_tools.o bin/webim_display.o bin/webim_main.o
+	$(CC) $(CCLDFLAGS) $(GTK) $? -o $@
 
 webim_defish_test: src/webim_defish_test.c bin/webim_defish.o 
 	$(CC) $(CFLAGS) $(CWAND) $^ -o $@

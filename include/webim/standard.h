@@ -2,6 +2,7 @@
 #define __GNU_SOURCE
 
 #define wiv_new(x)  ((x*)(malloc(sizeof(x))))
+#define wiv_free(x) {if (x) free(x);}
 
 typedef char*           wiv_str;
 typedef unsigned char   wiv_uint8;
