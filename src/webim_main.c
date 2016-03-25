@@ -52,6 +52,8 @@ wiv_idle_data_new (webim_config* config, wiv_display* display)
     data->appConfig     = config;
     data->display       = display;
     data->lastCallTime  = 0;
+
+    return data;
 }
 
 /**
