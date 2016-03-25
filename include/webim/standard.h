@@ -1,6 +1,10 @@
 #pragma once
 #define __GNU_SOURCE
 
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 #define wiv_new(x)  ((x*)(malloc(sizeof(x))))
 #define wiv_free(x) {if (x) free(x);}
 
