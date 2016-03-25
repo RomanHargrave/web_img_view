@@ -1,7 +1,7 @@
 CC      	= gcc
 CGTK		= $(shell pkg-config --libs --cflags gtk+-2.0)
 CWAND 		= $(shell pkg-config --libs --cflags MagickWand)
-CCLDFLAGS	= -g3 -lX11 -lm -lrt $(CWAND)
+CCLDFLAGS	= -Ofast -ffast-math -lX11 -lm -lrt --std=c99 $(CWAND) $(CGTK)
 CFLAGS  	= $(CCLDFLAGS) -I./include 
 STRIP   	= sstrip
 
