@@ -82,7 +82,6 @@ wiv_idle_event (gpointer data)
                 {
                     MagickSizeType sz;
                     MagickGetImageLength(wand, &sz);
-                    fprintf(stderr, "image size is %u\n", sz);
                 }
 
                 wiv_uint32 resizeX = idleData->appConfig->resizeX;
@@ -109,7 +108,6 @@ wiv_idle_event (gpointer data)
 
             // Step 2: Defish
             if (idleData->appConfig->shouldDewarp) {
-                fprintf(stderr, "image dewarp.\n");
                 webim_defish_image(
                         wand, 
                         idleData->appConfig->lensFOV, 
@@ -123,7 +121,6 @@ wiv_idle_event (gpointer data)
                 int err = wiv_magick_write_pixbuf(wand, &pixBuf);
 
                 if (pixBuf) {
-                    fprintf(stderr, "calling wiv_update_image\n");
                     wiv_update_image(idleData->display, pixBuf);             
                 } else {
                     fprintf(stderr, "write pb failed: %i\n", err);

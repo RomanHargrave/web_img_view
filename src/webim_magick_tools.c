@@ -55,7 +55,6 @@ wiv_magick_write_pixbuf (MagickWand* wand, GdkPixbuf** pixBuf)
 
     // Create a shared memory object
     if (memFD < 0) {
-        fprintf(stderr, "Could not open memfd: syscall returned %i\n", memFD);
         return memFD; 
     }
 
@@ -92,10 +91,8 @@ wiv_magick_write_pixbuf (MagickWand* wand, GdkPixbuf** pixBuf)
         wiv_uint8* streamContent;
         {
             streamContent = malloc(sizeof(wiv_uint8) * imageLen);
-            fprintf(stderr, "streamContent = %p\n", streamContent);
             fread(streamContent, sizeof(wiv_uint8), imageLen, memStream);
             stream = g_memory_input_stream_new_from_data(streamContent, imageLen, NULL);
-            fprintf(stderr, "streamContent = %p\n", streamContent);
         }
 
         GError* errorData    = NULL;
