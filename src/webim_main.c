@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 199309L
+
 #include <webim/standard.h>
 #include <webim/config.h>
 #include <webim/defish.h>
